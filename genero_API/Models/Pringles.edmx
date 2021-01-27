@@ -1,0 +1,1881 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PringlesDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="fecha_reg" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AutorLibro">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="autor_fk" Type="int" Nullable="false" />
+          <Property Name="libro_fk" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Caja">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fecha_reg" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dni" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="fecha_nacimiento" Type="date" Nullable="false" />
+          <Property Name="fecha_reg" Type="datetime" />
+          <Property Name="fecha_modificacion" Type="datetime" />
+          <Property Name="activo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Compra">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="proveedor_fk" Type="int" Nullable="false" />
+          <Property Name="usuario_fk" Type="int" Nullable="false" />
+          <Property Name="fecha_reg" Type="datetime" />
+          <Property Name="fecha_de_recepcion" Type="datetime" />
+          <Property Name="recibido" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Criterio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo_criterio" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fecha_reg" Type="datetime" />
+          <Property Name="requiere_cliente" Type="bit" />
+          <Property Name="prohibe_venta" Type="bit" />
+        </EntityType>
+        <EntityType Name="CriterioLibro">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="criterio_id" Type="int" Nullable="false" />
+          <Property Name="libro_id" Type="int" Nullable="false" />
+          <Property Name="fecha_reg" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DetalleCompra">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="compras_fk" Type="int" Nullable="false" />
+          <Property Name="libro_fk" Type="int" Nullable="false" />
+          <Property Name="precio_unitario" Type="money" Nullable="false" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DetalleDescuento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="fecha_reg" Type="datetime" />
+          <Property Name="fecha_fin" Type="datetime" />
+          <Property Name="aplica_genero" Type="bit" />
+          <Property Name="genero_fk" Type="int" />
+          <Property Name="aplica_autor" Type="bit" />
+          <Property Name="autor_fk" Type="int" />
+          <Property Name="descuento" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="estatus" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DetalleOrden">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orden_fk" Type="int" Nullable="false" />
+          <Property Name="libro_fk" Type="int" Nullable="false" />
+          <Property Name="precio_unitario" Type="money" Nullable="false" />
+          <Property Name="descuento" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="detalle_descuento_fk" Type="int" />
+          <Property Name="registro_caja_fk" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DireccionCliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cliente_fk" Type="int" />
+          <Property Name="descripcion" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmailCliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cliente_fk" Type="int" />
+          <Property Name="descripcion" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="texto" Type="varchar(max)" Nullable="false" />
+          <Property Name="orden_fk" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Genero">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="120" />
+          <Property Name="fecha_reg" Type="datetime" />
+        </EntityType>
+        <EntityType Name="HistorialCompraVentaLibro">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="libro_fk" Type="int" Nullable="false" />
+          <Property Name="precio_unitario_compra" Type="money" Nullable="false" />
+          <Property Name="precio_unitario_venta" Type="money" Nullable="false" />
+          <Property Name="fecha_reg" Type="datetime" />
+          <Property Name="cantidad_comprada" Type="int" Nullable="false" />
+          <Property Name="fecha_compra" Type="date" />
+        </EntityType>
+        <EntityType Name="Libro">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="isbn" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="fecha_reg" Type="datetime" />
+          <Property Name="cantidad_stock" Type="int" Nullable="false" />
+          <Property Name="titulo" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="genero_fk" Type="int" Nullable="false" />
+          <Property Name="criterio_acaba" Type="int" />
+          <Property Name="criterio_esperado" Type="int" />
+          <Property Name="monto_unitario" Type="money" Nullable="false" />
+          <Property Name="restringido" Type="bit" Nullable="false" />
+          <Property Name="prohibido" Type="bit" Nullable="false" />
+          <Property Name="activo" Type="bit" Nullable="false" />
+          <Property Name="proveedor_fk" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orden">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cliente_fk" Type="int" />
+          <Property Name="fecha_reg" Type="datetime" />
+          <Property Name="pago_efectivo" Type="bit" Nullable="false" />
+          <Property Name="pago_tarjeta" Type="bit" Nullable="false" />
+          <Property Name="monto_pago_efectivo" Type="money" Nullable="false" />
+          <Property Name="monto_pago_tarjeta" Type="money" Nullable="false" />
+          <Property Name="caja_fk" Type="int" Nullable="false" />
+          <Property Name="usuario_fk" Type="int" Nullable="false" />
+          <Property Name="cambio_dinero" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Proveedor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cuil" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="razon_social" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegistroCaja">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_calendario" Type="date" />
+          <Property Name="fecha_reg" Type="datetime" />
+          <Property Name="monto_inicial" Type="money" Nullable="false" />
+          <Property Name="vigente" Type="bit" Nullable="false" />
+          <Property Name="caja_fk" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegistroCierre">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="registro_calendario_fk" Type="int" Nullable="false" />
+          <Property Name="fecha_reg" Type="datetime" />
+          <Property Name="monto_caja" Type="money" Nullable="false" />
+          <Property Name="monto_cierre" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo_rol" Type="int" />
+          <Property Name="descripcion" Type="varchar" MaxLength="120" />
+        </EntityType>
+        <EntityType Name="Telefono">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo_telefono_fk" Type="int" Nullable="false" />
+          <Property Name="numero" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TelefonoCliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cliente_fk" Type="int" />
+          <Property Name="telefono_fk" Type="int" />
+        </EntityType>
+        <EntityType Name="TipoTelefono">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo_empleado" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="fecha_reg" Type="datetime" />
+          <Property Name="nombre_usuario" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="contrasenia" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="rol_id" Type="int" />
+          <Property Name="caja_fk" Type="int" />
+        </EntityType>
+        <Association Name="FK__AutorLibr__autor__5441852A">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="1" />
+          <End Role="AutorLibro" Type="Self.AutorLibro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AutorLibro">
+              <PropertyRef Name="autor_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AutorLibr__libro__5535A963">
+          <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
+          <End Role="AutorLibro" Type="Self.AutorLibro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libro">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AutorLibro">
+              <PropertyRef Name="libro_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Compra__proveedo__114A936A">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="proveedor_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Compra__usuario___10566F31">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="usuario_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CriterioL__crite__07C12930">
+          <End Role="Criterio" Type="Self.Criterio" Multiplicity="1" />
+          <End Role="CriterioLibro" Type="Self.CriterioLibro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Criterio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CriterioLibro">
+              <PropertyRef Name="criterio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CriterioL__libro__08B54D69">
+          <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
+          <End Role="CriterioLibro" Type="Self.CriterioLibro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libro">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CriterioLibro">
+              <PropertyRef Name="libro_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleCo__compr__151B244E">
+          <End Role="Compra" Type="Self.Compra" Multiplicity="1" />
+          <End Role="DetalleCompra" Type="Self.DetalleCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compra">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DetalleCompra">
+              <PropertyRef Name="compras_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleCo__libro__160F4887">
+          <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
+          <End Role="DetalleCompra" Type="Self.DetalleCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libro">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DetalleCompra">
+              <PropertyRef Name="libro_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleDe__autor__6E01572D">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="0..1" />
+          <End Role="DetalleDescuento" Type="Self.DetalleDescuento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DetalleDescuento">
+              <PropertyRef Name="autor_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleDe__gener__6D0D32F4">
+          <End Role="Genero" Type="Self.Genero" Multiplicity="0..1" />
+          <End Role="DetalleDescuento" Type="Self.DetalleDescuento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genero">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DetalleDescuento">
+              <PropertyRef Name="genero_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleOr__libro__7F2BE32F">
+          <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
+          <End Role="DetalleOrden" Type="Self.DetalleOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libro">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DetalleOrden">
+              <PropertyRef Name="libro_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleOr__orden__7E37BEF6">
+          <End Role="Orden" Type="Self.Orden" Multiplicity="1" />
+          <End Role="DetalleOrden" Type="Self.DetalleOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orden">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DetalleOrden">
+              <PropertyRef Name="orden_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleOr__regis__00200768">
+          <End Role="RegistroCaja" Type="Self.RegistroCaja" Multiplicity="1" />
+          <End Role="DetalleOrden" Type="Self.DetalleOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegistroCaja">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DetalleOrden">
+              <PropertyRef Name="registro_caja_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Direccion__clien__25518C17">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="DireccionCliente" Type="Self.DireccionCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DireccionCliente">
+              <PropertyRef Name="cliente_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmailClie__clien__282DF8C2">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="EmailCliente" Type="Self.EmailCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmailCliente">
+              <PropertyRef Name="cliente_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__orden_f__18EBB532">
+          <End Role="Orden" Type="Self.Orden" Multiplicity="1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orden">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="orden_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__libro__5BE2A6F2">
+          <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
+          <End Role="HistorialCompraVentaLibro" Type="Self.HistorialCompraVentaLibro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libro">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="HistorialCompraVentaLibro">
+              <PropertyRef Name="libro_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Libro__genero_fk__5070F446">
+          <End Role="Genero" Type="Self.Genero" Multiplicity="1" />
+          <End Role="Libro" Type="Self.Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genero">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="genero_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Libro__proveedor__2B0A656D">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+          <End Role="Libro" Type="Self.Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="proveedor_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orden__caja_fk__29221CFB">
+          <End Role="Caja" Type="Self.Caja" Multiplicity="1" />
+          <End Role="Orden" Type="Self.Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caja">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orden">
+              <PropertyRef Name="caja_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orden__cliente_f__6477ECF3">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Orden" Type="Self.Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orden">
+              <PropertyRef Name="cliente_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orden__usuario_f__656C112C">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Orden" Type="Self.Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orden">
+              <PropertyRef Name="usuario_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RegistroC__caja___76969D2E">
+          <End Role="Caja" Type="Self.Caja" Multiplicity="1" />
+          <End Role="RegistroCaja" Type="Self.RegistroCaja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caja">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RegistroCaja">
+              <PropertyRef Name="caja_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RegistroC__regis__7A672E12">
+          <End Role="RegistroCaja" Type="Self.RegistroCaja" Multiplicity="1" />
+          <End Role="RegistroCierre" Type="Self.RegistroCierre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegistroCaja">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RegistroCierre">
+              <PropertyRef Name="registro_calendario_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Telefono__tipo_t__1EA48E88">
+          <End Role="TipoTelefono" Type="Self.TipoTelefono" Multiplicity="1" />
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoTelefono">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Telefono">
+              <PropertyRef Name="tipo_telefono_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TelefonoC__clien__22751F6C">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="TelefonoCliente" Type="Self.TelefonoCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TelefonoCliente">
+              <PropertyRef Name="cliente_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TelefonoC__telef__2180FB33">
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="0..1" />
+          <End Role="TelefonoCliente" Type="Self.TelefonoCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Telefono">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TelefonoCliente">
+              <PropertyRef Name="telefono_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__caja_fk__2A164134">
+          <End Role="Caja" Type="Self.Caja" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caja">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="caja_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__rol_id__3D5E1FD2">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="rol_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PringlesDBModelStoreContainer">
+          <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AutorLibro" EntityType="Self.AutorLibro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Caja" EntityType="Self.Caja" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Compra" EntityType="Self.Compra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Criterio" EntityType="Self.Criterio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CriterioLibro" EntityType="Self.CriterioLibro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleCompra" EntityType="Self.DetalleCompra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleDescuento" EntityType="Self.DetalleDescuento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleOrden" EntityType="Self.DetalleOrden" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DireccionCliente" EntityType="Self.DireccionCliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmailCliente" EntityType="Self.EmailCliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Factura" EntityType="Self.Factura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genero" EntityType="Self.Genero" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HistorialCompraVentaLibro" EntityType="Self.HistorialCompraVentaLibro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Libro" EntityType="Self.Libro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orden" EntityType="Self.Orden" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegistroCaja" EntityType="Self.RegistroCaja" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegistroCierre" EntityType="Self.RegistroCierre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Telefono" EntityType="Self.Telefono" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TelefonoCliente" EntityType="Self.TelefonoCliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoTelefono" EntityType="Self.TipoTelefono" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AutorLibr__autor__5441852A" Association="Self.FK__AutorLibr__autor__5441852A">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="AutorLibro" EntitySet="AutorLibro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AutorLibr__libro__5535A963" Association="Self.FK__AutorLibr__libro__5535A963">
+            <End Role="Libro" EntitySet="Libro" />
+            <End Role="AutorLibro" EntitySet="AutorLibro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Compra__proveedo__114A936A" Association="Self.FK__Compra__proveedo__114A936A">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Compra__usuario___10566F31" Association="Self.FK__Compra__usuario___10566F31">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CriterioL__crite__07C12930" Association="Self.FK__CriterioL__crite__07C12930">
+            <End Role="Criterio" EntitySet="Criterio" />
+            <End Role="CriterioLibro" EntitySet="CriterioLibro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CriterioL__libro__08B54D69" Association="Self.FK__CriterioL__libro__08B54D69">
+            <End Role="Libro" EntitySet="Libro" />
+            <End Role="CriterioLibro" EntitySet="CriterioLibro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleCo__compr__151B244E" Association="Self.FK__DetalleCo__compr__151B244E">
+            <End Role="Compra" EntitySet="Compra" />
+            <End Role="DetalleCompra" EntitySet="DetalleCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleCo__libro__160F4887" Association="Self.FK__DetalleCo__libro__160F4887">
+            <End Role="Libro" EntitySet="Libro" />
+            <End Role="DetalleCompra" EntitySet="DetalleCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleDe__autor__6E01572D" Association="Self.FK__DetalleDe__autor__6E01572D">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="DetalleDescuento" EntitySet="DetalleDescuento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleDe__gener__6D0D32F4" Association="Self.FK__DetalleDe__gener__6D0D32F4">
+            <End Role="Genero" EntitySet="Genero" />
+            <End Role="DetalleDescuento" EntitySet="DetalleDescuento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleOr__libro__7F2BE32F" Association="Self.FK__DetalleOr__libro__7F2BE32F">
+            <End Role="Libro" EntitySet="Libro" />
+            <End Role="DetalleOrden" EntitySet="DetalleOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleOr__orden__7E37BEF6" Association="Self.FK__DetalleOr__orden__7E37BEF6">
+            <End Role="Orden" EntitySet="Orden" />
+            <End Role="DetalleOrden" EntitySet="DetalleOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleOr__regis__00200768" Association="Self.FK__DetalleOr__regis__00200768">
+            <End Role="RegistroCaja" EntitySet="RegistroCaja" />
+            <End Role="DetalleOrden" EntitySet="DetalleOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Direccion__clien__25518C17" Association="Self.FK__Direccion__clien__25518C17">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="DireccionCliente" EntitySet="DireccionCliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmailClie__clien__282DF8C2" Association="Self.FK__EmailClie__clien__282DF8C2">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="EmailCliente" EntitySet="EmailCliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__orden_f__18EBB532" Association="Self.FK__Factura__orden_f__18EBB532">
+            <End Role="Orden" EntitySet="Orden" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__libro__5BE2A6F2" Association="Self.FK__Historial__libro__5BE2A6F2">
+            <End Role="Libro" EntitySet="Libro" />
+            <End Role="HistorialCompraVentaLibro" EntitySet="HistorialCompraVentaLibro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Libro__genero_fk__5070F446" Association="Self.FK__Libro__genero_fk__5070F446">
+            <End Role="Genero" EntitySet="Genero" />
+            <End Role="Libro" EntitySet="Libro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Libro__proveedor__2B0A656D" Association="Self.FK__Libro__proveedor__2B0A656D">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Libro" EntitySet="Libro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orden__caja_fk__29221CFB" Association="Self.FK__Orden__caja_fk__29221CFB">
+            <End Role="Caja" EntitySet="Caja" />
+            <End Role="Orden" EntitySet="Orden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orden__cliente_f__6477ECF3" Association="Self.FK__Orden__cliente_f__6477ECF3">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Orden" EntitySet="Orden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orden__usuario_f__656C112C" Association="Self.FK__Orden__usuario_f__656C112C">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Orden" EntitySet="Orden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RegistroC__caja___76969D2E" Association="Self.FK__RegistroC__caja___76969D2E">
+            <End Role="Caja" EntitySet="Caja" />
+            <End Role="RegistroCaja" EntitySet="RegistroCaja" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RegistroC__regis__7A672E12" Association="Self.FK__RegistroC__regis__7A672E12">
+            <End Role="RegistroCaja" EntitySet="RegistroCaja" />
+            <End Role="RegistroCierre" EntitySet="RegistroCierre" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Telefono__tipo_t__1EA48E88" Association="Self.FK__Telefono__tipo_t__1EA48E88">
+            <End Role="TipoTelefono" EntitySet="TipoTelefono" />
+            <End Role="Telefono" EntitySet="Telefono" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TelefonoC__clien__22751F6C" Association="Self.FK__TelefonoC__clien__22751F6C">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="TelefonoCliente" EntitySet="TelefonoCliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TelefonoC__telef__2180FB33" Association="Self.FK__TelefonoC__telef__2180FB33">
+            <End Role="Telefono" EntitySet="Telefono" />
+            <End Role="TelefonoCliente" EntitySet="TelefonoCliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__caja_fk__2A164134" Association="Self.FK__Usuario__caja_fk__2A164134">
+            <End Role="Caja" EntitySet="Caja" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__rol_id__3D5E1FD2" Association="Self.FK__Usuario__rol_id__3D5E1FD2">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PringlesDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombres" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_reg" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AutorLibro" Relationship="Self.FK__AutorLibr__autor__5441852A" FromRole="Autor" ToRole="AutorLibro" />
+          <NavigationProperty Name="DetalleDescuento" Relationship="Self.FK__DetalleDe__autor__6E01572D" FromRole="Autor" ToRole="DetalleDescuento" />
+        </EntityType>
+        <EntityType Name="AutorLibro">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="autor_fk" Type="Int32" Nullable="false" />
+          <Property Name="libro_fk" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Autor" Relationship="Self.FK__AutorLibr__autor__5441852A" FromRole="AutorLibro" ToRole="Autor" />
+          <NavigationProperty Name="Libro" Relationship="Self.FK__AutorLibr__libro__5535A963" FromRole="AutorLibro" ToRole="Libro" />
+        </EntityType>
+        <EntityType Name="Caja">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_reg" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Orden" Relationship="Self.FK__Orden__caja_fk__29221CFB" FromRole="Caja" ToRole="Orden" />
+          <NavigationProperty Name="RegistroCaja" Relationship="Self.FK__RegistroC__caja___76969D2E" FromRole="Caja" ToRole="RegistroCaja" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__caja_fk__2A164134" FromRole="Caja" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dni" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombres" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_nacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="fecha_reg" Type="DateTime" Precision="3" />
+          <Property Name="fecha_modificacion" Type="DateTime" Precision="3" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DireccionCliente" Relationship="Self.FK__Direccion__clien__25518C17" FromRole="Cliente" ToRole="DireccionCliente" />
+          <NavigationProperty Name="EmailCliente" Relationship="Self.FK__EmailClie__clien__282DF8C2" FromRole="Cliente" ToRole="EmailCliente" />
+          <NavigationProperty Name="Orden" Relationship="Self.FK__Orden__cliente_f__6477ECF3" FromRole="Cliente" ToRole="Orden" />
+          <NavigationProperty Name="TelefonoCliente" Relationship="Self.FK__TelefonoC__clien__22751F6C" FromRole="Cliente" ToRole="TelefonoCliente" />
+        </EntityType>
+        <EntityType Name="Compra">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="proveedor_fk" Type="Int32" Nullable="false" />
+          <Property Name="usuario_fk" Type="Int32" Nullable="false" />
+          <Property Name="fecha_reg" Type="DateTime" Precision="3" />
+          <Property Name="fecha_de_recepcion" Type="DateTime" Precision="3" />
+          <Property Name="recibido" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Proveedor" Relationship="Self.FK__Compra__proveedo__114A936A" FromRole="Compra" ToRole="Proveedor" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Compra__usuario___10566F31" FromRole="Compra" ToRole="Usuario" />
+          <NavigationProperty Name="DetalleCompra" Relationship="Self.FK__DetalleCo__compr__151B244E" FromRole="Compra" ToRole="DetalleCompra" />
+        </EntityType>
+        <EntityType Name="Criterio">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo_criterio" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_reg" Type="DateTime" Precision="3" />
+          <Property Name="requiere_cliente" Type="Boolean" />
+          <Property Name="prohibe_venta" Type="Boolean" />
+          <NavigationProperty Name="CriterioLibro" Relationship="Self.FK__CriterioL__crite__07C12930" FromRole="Criterio" ToRole="CriterioLibro" />
+        </EntityType>
+        <EntityType Name="CriterioLibro">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="criterio_id" Type="Int32" Nullable="false" />
+          <Property Name="libro_id" Type="Int32" Nullable="false" />
+          <Property Name="fecha_reg" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Criterio" Relationship="Self.FK__CriterioL__crite__07C12930" FromRole="CriterioLibro" ToRole="Criterio" />
+          <NavigationProperty Name="Libro" Relationship="Self.FK__CriterioL__libro__08B54D69" FromRole="CriterioLibro" ToRole="Libro" />
+        </EntityType>
+        <EntityType Name="DetalleCompra">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="compras_fk" Type="Int32" Nullable="false" />
+          <Property Name="libro_fk" Type="Int32" Nullable="false" />
+          <Property Name="precio_unitario" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Compra" Relationship="Self.FK__DetalleCo__compr__151B244E" FromRole="DetalleCompra" ToRole="Compra" />
+          <NavigationProperty Name="Libro" Relationship="Self.FK__DetalleCo__libro__160F4887" FromRole="DetalleCompra" ToRole="Libro" />
+        </EntityType>
+        <EntityType Name="DetalleDescuento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_reg" Type="DateTime" Precision="3" />
+          <Property Name="fecha_fin" Type="DateTime" Precision="3" />
+          <Property Name="aplica_genero" Type="Boolean" />
+          <Property Name="genero_fk" Type="Int32" />
+          <Property Name="aplica_autor" Type="Boolean" />
+          <Property Name="autor_fk" Type="Int32" />
+          <Property Name="descuento" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="estatus" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Autor" Relationship="Self.FK__DetalleDe__autor__6E01572D" FromRole="DetalleDescuento" ToRole="Autor" />
+          <NavigationProperty Name="Genero" Relationship="Self.FK__DetalleDe__gener__6D0D32F4" FromRole="DetalleDescuento" ToRole="Genero" />
+        </EntityType>
+        <EntityType Name="DetalleOrden">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orden_fk" Type="Int32" Nullable="false" />
+          <Property Name="libro_fk" Type="Int32" Nullable="false" />
+          <Property Name="precio_unitario" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="descuento" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="detalle_descuento_fk" Type="Int32" />
+          <Property Name="registro_caja_fk" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Libro" Relationship="Self.FK__DetalleOr__libro__7F2BE32F" FromRole="DetalleOrden" ToRole="Libro" />
+          <NavigationProperty Name="Orden" Relationship="Self.FK__DetalleOr__orden__7E37BEF6" FromRole="DetalleOrden" ToRole="Orden" />
+          <NavigationProperty Name="RegistroCaja" Relationship="Self.FK__DetalleOr__regis__00200768" FromRole="DetalleOrden" ToRole="RegistroCaja" />
+        </EntityType>
+        <EntityType Name="DireccionCliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cliente_fk" Type="Int32" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Direccion__clien__25518C17" FromRole="DireccionCliente" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="EmailCliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cliente_fk" Type="Int32" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__EmailClie__clien__282DF8C2" FromRole="EmailCliente" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="Factura">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="texto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="orden_fk" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Orden" Relationship="Self.FK__Factura__orden_f__18EBB532" FromRole="Factura" ToRole="Orden" />
+        </EntityType>
+        <EntityType Name="Genero">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_reg" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DetalleDescuento" Relationship="Self.FK__DetalleDe__gener__6D0D32F4" FromRole="Genero" ToRole="DetalleDescuento" />
+          <NavigationProperty Name="Libro" Relationship="Self.FK__Libro__genero_fk__5070F446" FromRole="Genero" ToRole="Libro" />
+        </EntityType>
+        <EntityType Name="HistorialCompraVentaLibro">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="libro_fk" Type="Int32" Nullable="false" />
+          <Property Name="precio_unitario_compra" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="precio_unitario_venta" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="fecha_reg" Type="DateTime" Precision="3" />
+          <Property Name="cantidad_comprada" Type="Int32" Nullable="false" />
+          <Property Name="fecha_compra" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Libro" Relationship="Self.FK__Historial__libro__5BE2A6F2" FromRole="HistorialCompraVentaLibro" ToRole="Libro" />
+        </EntityType>
+        <EntityType Name="Libro">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="isbn" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_reg" Type="DateTime" Precision="3" />
+          <Property Name="cantidad_stock" Type="Int32" Nullable="false" />
+          <Property Name="titulo" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="genero_fk" Type="Int32" Nullable="false" />
+          <Property Name="criterio_acaba" Type="Int32" />
+          <Property Name="criterio_esperado" Type="Int32" />
+          <Property Name="monto_unitario" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="restringido" Type="Boolean" Nullable="false" />
+          <Property Name="prohibido" Type="Boolean" Nullable="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <Property Name="proveedor_fk" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AutorLibro" Relationship="Self.FK__AutorLibr__libro__5535A963" FromRole="Libro" ToRole="AutorLibro" />
+          <NavigationProperty Name="CriterioLibro" Relationship="Self.FK__CriterioL__libro__08B54D69" FromRole="Libro" ToRole="CriterioLibro" />
+          <NavigationProperty Name="DetalleCompra" Relationship="Self.FK__DetalleCo__libro__160F4887" FromRole="Libro" ToRole="DetalleCompra" />
+          <NavigationProperty Name="DetalleOrden" Relationship="Self.FK__DetalleOr__libro__7F2BE32F" FromRole="Libro" ToRole="DetalleOrden" />
+          <NavigationProperty Name="Genero" Relationship="Self.FK__Libro__genero_fk__5070F446" FromRole="Libro" ToRole="Genero" />
+          <NavigationProperty Name="HistorialCompraVentaLibro" Relationship="Self.FK__Historial__libro__5BE2A6F2" FromRole="Libro" ToRole="HistorialCompraVentaLibro" />
+          <NavigationProperty Name="Proveedor" Relationship="Self.FK__Libro__proveedor__2B0A656D" FromRole="Libro" ToRole="Proveedor" />
+        </EntityType>
+        <EntityType Name="Orden">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cliente_fk" Type="Int32" />
+          <Property Name="fecha_reg" Type="DateTime" Precision="3" />
+          <Property Name="pago_efectivo" Type="Boolean" Nullable="false" />
+          <Property Name="pago_tarjeta" Type="Boolean" Nullable="false" />
+          <Property Name="monto_pago_efectivo" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="monto_pago_tarjeta" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="caja_fk" Type="Int32" Nullable="false" />
+          <Property Name="usuario_fk" Type="Int32" Nullable="false" />
+          <Property Name="cambio_dinero" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Caja" Relationship="Self.FK__Orden__caja_fk__29221CFB" FromRole="Orden" ToRole="Caja" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Orden__cliente_f__6477ECF3" FromRole="Orden" ToRole="Cliente" />
+          <NavigationProperty Name="DetalleOrden" Relationship="Self.FK__DetalleOr__orden__7E37BEF6" FromRole="Orden" ToRole="DetalleOrden" />
+          <NavigationProperty Name="Factura" Relationship="Self.FK__Factura__orden_f__18EBB532" FromRole="Orden" ToRole="Factura" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Orden__usuario_f__656C112C" FromRole="Orden" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Proveedor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cuil" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="razon_social" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Compra" Relationship="Self.FK__Compra__proveedo__114A936A" FromRole="Proveedor" ToRole="Compra" />
+          <NavigationProperty Name="Libro" Relationship="Self.FK__Libro__proveedor__2B0A656D" FromRole="Proveedor" ToRole="Libro" />
+        </EntityType>
+        <EntityType Name="RegistroCaja">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_calendario" Type="DateTime" Precision="0" />
+          <Property Name="fecha_reg" Type="DateTime" Precision="3" />
+          <Property Name="monto_inicial" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="vigente" Type="Boolean" Nullable="false" />
+          <Property Name="caja_fk" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Caja" Relationship="Self.FK__RegistroC__caja___76969D2E" FromRole="RegistroCaja" ToRole="Caja" />
+          <NavigationProperty Name="DetalleOrden" Relationship="Self.FK__DetalleOr__regis__00200768" FromRole="RegistroCaja" ToRole="DetalleOrden" />
+          <NavigationProperty Name="RegistroCierre" Relationship="Self.FK__RegistroC__regis__7A672E12" FromRole="RegistroCaja" ToRole="RegistroCierre" />
+        </EntityType>
+        <EntityType Name="RegistroCierre">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="registro_calendario_fk" Type="Int32" Nullable="false" />
+          <Property Name="fecha_reg" Type="DateTime" Precision="3" />
+          <Property Name="monto_caja" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="monto_cierre" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="RegistroCaja" Relationship="Self.FK__RegistroC__regis__7A672E12" FromRole="RegistroCierre" ToRole="RegistroCaja" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo_rol" Type="Int32" />
+          <Property Name="descripcion" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__rol_id__3D5E1FD2" FromRole="Rol" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Telefono">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo_telefono_fk" Type="Int32" Nullable="false" />
+          <Property Name="numero" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TipoTelefono" Relationship="Self.FK__Telefono__tipo_t__1EA48E88" FromRole="Telefono" ToRole="TipoTelefono" />
+          <NavigationProperty Name="TelefonoCliente" Relationship="Self.FK__TelefonoC__telef__2180FB33" FromRole="Telefono" ToRole="TelefonoCliente" />
+        </EntityType>
+        <EntityType Name="TelefonoCliente">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cliente_fk" Type="Int32" />
+          <Property Name="telefono_fk" Type="Int32" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__TelefonoC__clien__22751F6C" FromRole="TelefonoCliente" ToRole="Cliente" />
+          <NavigationProperty Name="Telefono" Relationship="Self.FK__TelefonoC__telef__2180FB33" FromRole="TelefonoCliente" ToRole="Telefono" />
+        </EntityType>
+        <EntityType Name="TipoTelefono">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Telefono" Relationship="Self.FK__Telefono__tipo_t__1EA48E88" FromRole="TipoTelefono" ToRole="Telefono" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo_empleado" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombres" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_reg" Type="DateTime" Precision="3" />
+          <Property Name="nombre_usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contrasenia" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rol_id" Type="Int32" />
+          <Property Name="caja_fk" Type="Int32" />
+          <NavigationProperty Name="Caja" Relationship="Self.FK__Usuario__caja_fk__2A164134" FromRole="Usuario" ToRole="Caja" />
+          <NavigationProperty Name="Compra" Relationship="Self.FK__Compra__usuario___10566F31" FromRole="Usuario" ToRole="Compra" />
+          <NavigationProperty Name="Orden" Relationship="Self.FK__Orden__usuario_f__656C112C" FromRole="Usuario" ToRole="Orden" />
+          <NavigationProperty Name="Rol" Relationship="Self.FK__Usuario__rol_id__3D5E1FD2" FromRole="Usuario" ToRole="Rol" />
+        </EntityType>
+        <Association Name="FK__AutorLibr__autor__5441852A">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="1" />
+          <End Role="AutorLibro" Type="Self.AutorLibro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AutorLibro">
+              <PropertyRef Name="autor_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleDe__autor__6E01572D">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="0..1" />
+          <End Role="DetalleDescuento" Type="Self.DetalleDescuento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DetalleDescuento">
+              <PropertyRef Name="autor_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AutorLibr__libro__5535A963">
+          <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
+          <End Role="AutorLibro" Type="Self.AutorLibro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libro">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AutorLibro">
+              <PropertyRef Name="libro_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orden__caja_fk__29221CFB">
+          <End Role="Caja" Type="Self.Caja" Multiplicity="1" />
+          <End Role="Orden" Type="Self.Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caja">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orden">
+              <PropertyRef Name="caja_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RegistroC__caja___76969D2E">
+          <End Role="Caja" Type="Self.Caja" Multiplicity="1" />
+          <End Role="RegistroCaja" Type="Self.RegistroCaja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caja">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RegistroCaja">
+              <PropertyRef Name="caja_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__caja_fk__2A164134">
+          <End Role="Caja" Type="Self.Caja" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caja">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="caja_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Direccion__clien__25518C17">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="DireccionCliente" Type="Self.DireccionCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DireccionCliente">
+              <PropertyRef Name="cliente_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmailClie__clien__282DF8C2">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="EmailCliente" Type="Self.EmailCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EmailCliente">
+              <PropertyRef Name="cliente_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orden__cliente_f__6477ECF3">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="Orden" Type="Self.Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orden">
+              <PropertyRef Name="cliente_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TelefonoC__clien__22751F6C">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="TelefonoCliente" Type="Self.TelefonoCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TelefonoCliente">
+              <PropertyRef Name="cliente_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Compra__proveedo__114A936A">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="proveedor_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Compra__usuario___10566F31">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="usuario_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleCo__compr__151B244E">
+          <End Role="Compra" Type="Self.Compra" Multiplicity="1" />
+          <End Role="DetalleCompra" Type="Self.DetalleCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Compra">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DetalleCompra">
+              <PropertyRef Name="compras_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CriterioL__crite__07C12930">
+          <End Role="Criterio" Type="Self.Criterio" Multiplicity="1" />
+          <End Role="CriterioLibro" Type="Self.CriterioLibro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Criterio">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CriterioLibro">
+              <PropertyRef Name="criterio_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CriterioL__libro__08B54D69">
+          <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
+          <End Role="CriterioLibro" Type="Self.CriterioLibro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libro">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CriterioLibro">
+              <PropertyRef Name="libro_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleCo__libro__160F4887">
+          <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
+          <End Role="DetalleCompra" Type="Self.DetalleCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libro">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DetalleCompra">
+              <PropertyRef Name="libro_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleDe__gener__6D0D32F4">
+          <End Role="Genero" Type="Self.Genero" Multiplicity="0..1" />
+          <End Role="DetalleDescuento" Type="Self.DetalleDescuento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genero">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DetalleDescuento">
+              <PropertyRef Name="genero_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleOr__libro__7F2BE32F">
+          <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
+          <End Role="DetalleOrden" Type="Self.DetalleOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libro">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DetalleOrden">
+              <PropertyRef Name="libro_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleOr__orden__7E37BEF6">
+          <End Role="Orden" Type="Self.Orden" Multiplicity="1" />
+          <End Role="DetalleOrden" Type="Self.DetalleOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orden">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DetalleOrden">
+              <PropertyRef Name="orden_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DetalleOr__regis__00200768">
+          <End Role="RegistroCaja" Type="Self.RegistroCaja" Multiplicity="1" />
+          <End Role="DetalleOrden" Type="Self.DetalleOrden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegistroCaja">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DetalleOrden">
+              <PropertyRef Name="registro_caja_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Factura__orden_f__18EBB532">
+          <End Role="Orden" Type="Self.Orden" Multiplicity="1" />
+          <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orden">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Factura">
+              <PropertyRef Name="orden_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Libro__genero_fk__5070F446">
+          <End Role="Genero" Type="Self.Genero" Multiplicity="1" />
+          <End Role="Libro" Type="Self.Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genero">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="genero_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Historial__libro__5BE2A6F2">
+          <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
+          <End Role="HistorialCompraVentaLibro" Type="Self.HistorialCompraVentaLibro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libro">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="HistorialCompraVentaLibro">
+              <PropertyRef Name="libro_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Libro__proveedor__2B0A656D">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+          <End Role="Libro" Type="Self.Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="proveedor_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orden__usuario_f__656C112C">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Orden" Type="Self.Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orden">
+              <PropertyRef Name="usuario_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RegistroC__regis__7A672E12">
+          <End Role="RegistroCaja" Type="Self.RegistroCaja" Multiplicity="1" />
+          <End Role="RegistroCierre" Type="Self.RegistroCierre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegistroCaja">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RegistroCierre">
+              <PropertyRef Name="registro_calendario_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__rol_id__3D5E1FD2">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="rol_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Telefono__tipo_t__1EA48E88">
+          <End Role="TipoTelefono" Type="Self.TipoTelefono" Multiplicity="1" />
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoTelefono">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Telefono">
+              <PropertyRef Name="tipo_telefono_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TelefonoC__telef__2180FB33">
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="0..1" />
+          <End Role="TelefonoCliente" Type="Self.TelefonoCliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Telefono">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="TelefonoCliente">
+              <PropertyRef Name="telefono_fk" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PringlesDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Autor" EntityType="Self.Autor" />
+          <EntitySet Name="AutorLibro" EntityType="Self.AutorLibro" />
+          <EntitySet Name="Caja" EntityType="Self.Caja" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Compra" EntityType="Self.Compra" />
+          <EntitySet Name="Criterio" EntityType="Self.Criterio" />
+          <EntitySet Name="CriterioLibro" EntityType="Self.CriterioLibro" />
+          <EntitySet Name="DetalleCompra" EntityType="Self.DetalleCompra" />
+          <EntitySet Name="DetalleDescuento" EntityType="Self.DetalleDescuento" />
+          <EntitySet Name="DetalleOrden" EntityType="Self.DetalleOrden" />
+          <EntitySet Name="DireccionCliente" EntityType="Self.DireccionCliente" />
+          <EntitySet Name="EmailCliente" EntityType="Self.EmailCliente" />
+          <EntitySet Name="Factura" EntityType="Self.Factura" />
+          <EntitySet Name="Genero" EntityType="Self.Genero" />
+          <EntitySet Name="HistorialCompraVentaLibro" EntityType="Self.HistorialCompraVentaLibro" />
+          <EntitySet Name="Libro" EntityType="Self.Libro" />
+          <EntitySet Name="Orden" EntityType="Self.Orden" />
+          <EntitySet Name="Proveedor" EntityType="Self.Proveedor" />
+          <EntitySet Name="RegistroCaja" EntityType="Self.RegistroCaja" />
+          <EntitySet Name="RegistroCierre" EntityType="Self.RegistroCierre" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" />
+          <EntitySet Name="Telefono" EntityType="Self.Telefono" />
+          <EntitySet Name="TelefonoCliente" EntityType="Self.TelefonoCliente" />
+          <EntitySet Name="TipoTelefono" EntityType="Self.TipoTelefono" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__AutorLibr__autor__5441852A" Association="Self.FK__AutorLibr__autor__5441852A">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="AutorLibro" EntitySet="AutorLibro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleDe__autor__6E01572D" Association="Self.FK__DetalleDe__autor__6E01572D">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="DetalleDescuento" EntitySet="DetalleDescuento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AutorLibr__libro__5535A963" Association="Self.FK__AutorLibr__libro__5535A963">
+            <End Role="Libro" EntitySet="Libro" />
+            <End Role="AutorLibro" EntitySet="AutorLibro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orden__caja_fk__29221CFB" Association="Self.FK__Orden__caja_fk__29221CFB">
+            <End Role="Caja" EntitySet="Caja" />
+            <End Role="Orden" EntitySet="Orden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RegistroC__caja___76969D2E" Association="Self.FK__RegistroC__caja___76969D2E">
+            <End Role="Caja" EntitySet="Caja" />
+            <End Role="RegistroCaja" EntitySet="RegistroCaja" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__caja_fk__2A164134" Association="Self.FK__Usuario__caja_fk__2A164134">
+            <End Role="Caja" EntitySet="Caja" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Direccion__clien__25518C17" Association="Self.FK__Direccion__clien__25518C17">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="DireccionCliente" EntitySet="DireccionCliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmailClie__clien__282DF8C2" Association="Self.FK__EmailClie__clien__282DF8C2">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="EmailCliente" EntitySet="EmailCliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orden__cliente_f__6477ECF3" Association="Self.FK__Orden__cliente_f__6477ECF3">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Orden" EntitySet="Orden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TelefonoC__clien__22751F6C" Association="Self.FK__TelefonoC__clien__22751F6C">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="TelefonoCliente" EntitySet="TelefonoCliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Compra__proveedo__114A936A" Association="Self.FK__Compra__proveedo__114A936A">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Compra__usuario___10566F31" Association="Self.FK__Compra__usuario___10566F31">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleCo__compr__151B244E" Association="Self.FK__DetalleCo__compr__151B244E">
+            <End Role="Compra" EntitySet="Compra" />
+            <End Role="DetalleCompra" EntitySet="DetalleCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CriterioL__crite__07C12930" Association="Self.FK__CriterioL__crite__07C12930">
+            <End Role="Criterio" EntitySet="Criterio" />
+            <End Role="CriterioLibro" EntitySet="CriterioLibro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CriterioL__libro__08B54D69" Association="Self.FK__CriterioL__libro__08B54D69">
+            <End Role="Libro" EntitySet="Libro" />
+            <End Role="CriterioLibro" EntitySet="CriterioLibro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleCo__libro__160F4887" Association="Self.FK__DetalleCo__libro__160F4887">
+            <End Role="Libro" EntitySet="Libro" />
+            <End Role="DetalleCompra" EntitySet="DetalleCompra" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleDe__gener__6D0D32F4" Association="Self.FK__DetalleDe__gener__6D0D32F4">
+            <End Role="Genero" EntitySet="Genero" />
+            <End Role="DetalleDescuento" EntitySet="DetalleDescuento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleOr__libro__7F2BE32F" Association="Self.FK__DetalleOr__libro__7F2BE32F">
+            <End Role="Libro" EntitySet="Libro" />
+            <End Role="DetalleOrden" EntitySet="DetalleOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleOr__orden__7E37BEF6" Association="Self.FK__DetalleOr__orden__7E37BEF6">
+            <End Role="Orden" EntitySet="Orden" />
+            <End Role="DetalleOrden" EntitySet="DetalleOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DetalleOr__regis__00200768" Association="Self.FK__DetalleOr__regis__00200768">
+            <End Role="RegistroCaja" EntitySet="RegistroCaja" />
+            <End Role="DetalleOrden" EntitySet="DetalleOrden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Factura__orden_f__18EBB532" Association="Self.FK__Factura__orden_f__18EBB532">
+            <End Role="Orden" EntitySet="Orden" />
+            <End Role="Factura" EntitySet="Factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Libro__genero_fk__5070F446" Association="Self.FK__Libro__genero_fk__5070F446">
+            <End Role="Genero" EntitySet="Genero" />
+            <End Role="Libro" EntitySet="Libro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Historial__libro__5BE2A6F2" Association="Self.FK__Historial__libro__5BE2A6F2">
+            <End Role="Libro" EntitySet="Libro" />
+            <End Role="HistorialCompraVentaLibro" EntitySet="HistorialCompraVentaLibro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Libro__proveedor__2B0A656D" Association="Self.FK__Libro__proveedor__2B0A656D">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Libro" EntitySet="Libro" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orden__usuario_f__656C112C" Association="Self.FK__Orden__usuario_f__656C112C">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Orden" EntitySet="Orden" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RegistroC__regis__7A672E12" Association="Self.FK__RegistroC__regis__7A672E12">
+            <End Role="RegistroCaja" EntitySet="RegistroCaja" />
+            <End Role="RegistroCierre" EntitySet="RegistroCierre" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__rol_id__3D5E1FD2" Association="Self.FK__Usuario__rol_id__3D5E1FD2">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Telefono__tipo_t__1EA48E88" Association="Self.FK__Telefono__tipo_t__1EA48E88">
+            <End Role="TipoTelefono" EntitySet="TipoTelefono" />
+            <End Role="Telefono" EntitySet="Telefono" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TelefonoC__telef__2180FB33" Association="Self.FK__TelefonoC__telef__2180FB33">
+            <End Role="Telefono" EntitySet="Telefono" />
+            <End Role="TelefonoCliente" EntitySet="TelefonoCliente" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PringlesDBModelStoreContainer" CdmEntityContainer="PringlesDBEntities">
+          <EntitySetMapping Name="Autor">
+            <EntityTypeMapping TypeName="PringlesDBModel.Autor">
+              <MappingFragment StoreEntitySet="Autor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="fecha_reg" ColumnName="fecha_reg" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AutorLibro">
+            <EntityTypeMapping TypeName="PringlesDBModel.AutorLibro">
+              <MappingFragment StoreEntitySet="AutorLibro">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="autor_fk" ColumnName="autor_fk" />
+                <ScalarProperty Name="libro_fk" ColumnName="libro_fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Caja">
+            <EntityTypeMapping TypeName="PringlesDBModel.Caja">
+              <MappingFragment StoreEntitySet="Caja">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fecha_reg" ColumnName="fecha_reg" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="PringlesDBModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+                <ScalarProperty Name="fecha_reg" ColumnName="fecha_reg" />
+                <ScalarProperty Name="fecha_modificacion" ColumnName="fecha_modificacion" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Compra">
+            <EntityTypeMapping TypeName="PringlesDBModel.Compra">
+              <MappingFragment StoreEntitySet="Compra">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="proveedor_fk" ColumnName="proveedor_fk" />
+                <ScalarProperty Name="usuario_fk" ColumnName="usuario_fk" />
+                <ScalarProperty Name="fecha_reg" ColumnName="fecha_reg" />
+                <ScalarProperty Name="fecha_de_recepcion" ColumnName="fecha_de_recepcion" />
+                <ScalarProperty Name="recibido" ColumnName="recibido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Criterio">
+            <EntityTypeMapping TypeName="PringlesDBModel.Criterio">
+              <MappingFragment StoreEntitySet="Criterio">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codigo_criterio" ColumnName="codigo_criterio" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fecha_reg" ColumnName="fecha_reg" />
+                <ScalarProperty Name="requiere_cliente" ColumnName="requiere_cliente" />
+                <ScalarProperty Name="prohibe_venta" ColumnName="prohibe_venta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CriterioLibro">
+            <EntityTypeMapping TypeName="PringlesDBModel.CriterioLibro">
+              <MappingFragment StoreEntitySet="CriterioLibro">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="criterio_id" ColumnName="criterio_id" />
+                <ScalarProperty Name="libro_id" ColumnName="libro_id" />
+                <ScalarProperty Name="fecha_reg" ColumnName="fecha_reg" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleCompra">
+            <EntityTypeMapping TypeName="PringlesDBModel.DetalleCompra">
+              <MappingFragment StoreEntitySet="DetalleCompra">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="compras_fk" ColumnName="compras_fk" />
+                <ScalarProperty Name="libro_fk" ColumnName="libro_fk" />
+                <ScalarProperty Name="precio_unitario" ColumnName="precio_unitario" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleDescuento">
+            <EntityTypeMapping TypeName="PringlesDBModel.DetalleDescuento">
+              <MappingFragment StoreEntitySet="DetalleDescuento">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fecha_reg" ColumnName="fecha_reg" />
+                <ScalarProperty Name="fecha_fin" ColumnName="fecha_fin" />
+                <ScalarProperty Name="aplica_genero" ColumnName="aplica_genero" />
+                <ScalarProperty Name="genero_fk" ColumnName="genero_fk" />
+                <ScalarProperty Name="aplica_autor" ColumnName="aplica_autor" />
+                <ScalarProperty Name="autor_fk" ColumnName="autor_fk" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleOrden">
+            <EntityTypeMapping TypeName="PringlesDBModel.DetalleOrden">
+              <MappingFragment StoreEntitySet="DetalleOrden">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="orden_fk" ColumnName="orden_fk" />
+                <ScalarProperty Name="libro_fk" ColumnName="libro_fk" />
+                <ScalarProperty Name="precio_unitario" ColumnName="precio_unitario" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="detalle_descuento_fk" ColumnName="detalle_descuento_fk" />
+                <ScalarProperty Name="registro_caja_fk" ColumnName="registro_caja_fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DireccionCliente">
+            <EntityTypeMapping TypeName="PringlesDBModel.DireccionCliente">
+              <MappingFragment StoreEntitySet="DireccionCliente">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cliente_fk" ColumnName="cliente_fk" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailCliente">
+            <EntityTypeMapping TypeName="PringlesDBModel.EmailCliente">
+              <MappingFragment StoreEntitySet="EmailCliente">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cliente_fk" ColumnName="cliente_fk" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Factura">
+            <EntityTypeMapping TypeName="PringlesDBModel.Factura">
+              <MappingFragment StoreEntitySet="Factura">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="texto" ColumnName="texto" />
+                <ScalarProperty Name="orden_fk" ColumnName="orden_fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genero">
+            <EntityTypeMapping TypeName="PringlesDBModel.Genero">
+              <MappingFragment StoreEntitySet="Genero">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="fecha_reg" ColumnName="fecha_reg" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistorialCompraVentaLibro">
+            <EntityTypeMapping TypeName="PringlesDBModel.HistorialCompraVentaLibro">
+              <MappingFragment StoreEntitySet="HistorialCompraVentaLibro">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="libro_fk" ColumnName="libro_fk" />
+                <ScalarProperty Name="precio_unitario_compra" ColumnName="precio_unitario_compra" />
+                <ScalarProperty Name="precio_unitario_venta" ColumnName="precio_unitario_venta" />
+                <ScalarProperty Name="fecha_reg" ColumnName="fecha_reg" />
+                <ScalarProperty Name="cantidad_comprada" ColumnName="cantidad_comprada" />
+                <ScalarProperty Name="fecha_compra" ColumnName="fecha_compra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Libro">
+            <EntityTypeMapping TypeName="PringlesDBModel.Libro">
+              <MappingFragment StoreEntitySet="Libro">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="isbn" ColumnName="isbn" />
+                <ScalarProperty Name="fecha_reg" ColumnName="fecha_reg" />
+                <ScalarProperty Name="cantidad_stock" ColumnName="cantidad_stock" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="genero_fk" ColumnName="genero_fk" />
+                <ScalarProperty Name="criterio_acaba" ColumnName="criterio_acaba" />
+                <ScalarProperty Name="criterio_esperado" ColumnName="criterio_esperado" />
+                <ScalarProperty Name="monto_unitario" ColumnName="monto_unitario" />
+                <ScalarProperty Name="restringido" ColumnName="restringido" />
+                <ScalarProperty Name="prohibido" ColumnName="prohibido" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="proveedor_fk" ColumnName="proveedor_fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orden">
+            <EntityTypeMapping TypeName="PringlesDBModel.Orden">
+              <MappingFragment StoreEntitySet="Orden">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cliente_fk" ColumnName="cliente_fk" />
+                <ScalarProperty Name="fecha_reg" ColumnName="fecha_reg" />
+                <ScalarProperty Name="pago_efectivo" ColumnName="pago_efectivo" />
+                <ScalarProperty Name="pago_tarjeta" ColumnName="pago_tarjeta" />
+                <ScalarProperty Name="monto_pago_efectivo" ColumnName="monto_pago_efectivo" />
+                <ScalarProperty Name="monto_pago_tarjeta" ColumnName="monto_pago_tarjeta" />
+                <ScalarProperty Name="caja_fk" ColumnName="caja_fk" />
+                <ScalarProperty Name="usuario_fk" ColumnName="usuario_fk" />
+                <ScalarProperty Name="cambio_dinero" ColumnName="cambio_dinero" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proveedor">
+            <EntityTypeMapping TypeName="PringlesDBModel.Proveedor">
+              <MappingFragment StoreEntitySet="Proveedor">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cuil" ColumnName="cuil" />
+                <ScalarProperty Name="razon_social" ColumnName="razon_social" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistroCaja">
+            <EntityTypeMapping TypeName="PringlesDBModel.RegistroCaja">
+              <MappingFragment StoreEntitySet="RegistroCaja">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fecha_calendario" ColumnName="fecha_calendario" />
+                <ScalarProperty Name="fecha_reg" ColumnName="fecha_reg" />
+                <ScalarProperty Name="monto_inicial" ColumnName="monto_inicial" />
+                <ScalarProperty Name="vigente" ColumnName="vigente" />
+                <ScalarProperty Name="caja_fk" ColumnName="caja_fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistroCierre">
+            <EntityTypeMapping TypeName="PringlesDBModel.RegistroCierre">
+              <MappingFragment StoreEntitySet="RegistroCierre">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="registro_calendario_fk" ColumnName="registro_calendario_fk" />
+                <ScalarProperty Name="fecha_reg" ColumnName="fecha_reg" />
+                <ScalarProperty Name="monto_caja" ColumnName="monto_caja" />
+                <ScalarProperty Name="monto_cierre" ColumnName="monto_cierre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="PringlesDBModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codigo_rol" ColumnName="codigo_rol" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Telefono">
+            <EntityTypeMapping TypeName="PringlesDBModel.Telefono">
+              <MappingFragment StoreEntitySet="Telefono">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="tipo_telefono_fk" ColumnName="tipo_telefono_fk" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TelefonoCliente">
+            <EntityTypeMapping TypeName="PringlesDBModel.TelefonoCliente">
+              <MappingFragment StoreEntitySet="TelefonoCliente">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="cliente_fk" ColumnName="cliente_fk" />
+                <ScalarProperty Name="telefono_fk" ColumnName="telefono_fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoTelefono">
+            <EntityTypeMapping TypeName="PringlesDBModel.TipoTelefono">
+              <MappingFragment StoreEntitySet="TipoTelefono">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="PringlesDBModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="codigo_empleado" ColumnName="codigo_empleado" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="fecha_reg" ColumnName="fecha_reg" />
+                <ScalarProperty Name="nombre_usuario" ColumnName="nombre_usuario" />
+                <ScalarProperty Name="contrasenia" ColumnName="contrasenia" />
+                <ScalarProperty Name="rol_id" ColumnName="rol_id" />
+                <ScalarProperty Name="caja_fk" ColumnName="caja_fk" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

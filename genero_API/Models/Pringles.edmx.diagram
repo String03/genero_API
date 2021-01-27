@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="347a3cb2fe8c483b9c1665def79d8b92" Name="Diagram1">
+        <EntityTypeShape EntityType="PringlesDBModel.Autor" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.AutorLibro" Width="1.5" PointX="8.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.Caja" Width="1.5" PointX="6.75" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.Cliente" Width="1.5" PointX="6.75" PointY="29.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.Compra" Width="1.5" PointX="6" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.Criterio" Width="1.5" PointX="6" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.CriterioLibro" Width="1.5" PointX="8.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.DetalleCompra" Width="1.5" PointX="8.25" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.DetalleDescuento" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.DetalleOrden" Width="1.5" PointX="11.25" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.DireccionCliente" Width="1.5" PointX="9" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.EmailCliente" Width="1.5" PointX="9" PointY="34.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.Factura" Width="1.5" PointX="11.25" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.Genero" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.HistorialCompraVentaLibro" Width="1.5" PointX="8.25" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.Libro" Width="1.5" PointX="6" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.Orden" Width="1.5" PointX="9" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.Proveedor" Width="1.5" PointX="3.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.RegistroCaja" Width="1.5" PointX="9" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.RegistroCierre" Width="1.5" PointX="11.25" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.Rol" Width="1.5" PointX="4.5" PointY="34.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.Telefono" Width="1.5" PointX="9.75" PointY="38" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.TelefonoCliente" Width="1.5" PointX="12" PointY="28" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.TipoTelefono" Width="1.5" PointX="7.5" PointY="38.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PringlesDBModel.Usuario" Width="1.5" PointX="6.75" PointY="33.375" IsExpanded="true" />
+        <AssociationConnector Association="PringlesDBModel.FK__AutorLibr__autor__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__DetalleDe__autor__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__AutorLibr__libro__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__Orden__caja_fk__29221CFB" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__RegistroC__caja___76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__Usuario__caja_fk__2A164134" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__Direccion__clien__25518C17" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__EmailClie__clien__282DF8C2" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__Orden__cliente_f__6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__TelefonoC__clien__22751F6C" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__Compra__proveedo__114A936A" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__Compra__usuario___10566F31" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__DetalleCo__compr__151B244E" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__CriterioL__crite__07C12930" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__CriterioL__libro__08B54D69" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__DetalleCo__libro__160F4887" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__DetalleDe__gener__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__DetalleOr__libro__7F2BE32F" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__DetalleOr__orden__7E37BEF6" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__DetalleOr__regis__00200768" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__Factura__orden_f__18EBB532" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__Libro__genero_fk__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__Historial__libro__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__Libro__proveedor__2B0A656D" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__Orden__usuario_f__656C112C" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__RegistroC__regis__7A672E12" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__Usuario__rol_id__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__Telefono__tipo_t__1EA48E88" ManuallyRouted="false" />
+        <AssociationConnector Association="PringlesDBModel.FK__TelefonoC__telef__2180FB33" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
